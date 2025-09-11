@@ -232,6 +232,131 @@ class Terminal {
         this.userScrolled = false;
         this.lastScrollTop = 0;
         this.particles = [];
+        this.tabCompletionIndex = -1;
+        this.lastTabCompletionMatches = [];
+        
+        // GUI File Viewer Mode
+        this.guiMode = false;
+        this.currentPath = '/';
+        this.fileSystem = {
+            '/': {
+                type: 'directory',
+                children: {
+                    'projects': {
+                        type: 'directory',
+                        children: {
+                            'web-apps': {
+                                type: 'directory',
+                                children: {
+                                    'portfolio': {
+                                        type: 'file',
+                                        size: '2.3MB',
+                                        modified: '2024-01-15',
+                                        description: 'Terminal-style portfolio website'
+                                    },
+                                    'e-commerce': {
+                                        type: 'file',
+                                        size: '5.7MB',
+                                        modified: '2023-12-20',
+                                        description: 'Full-stack e-commerce platform'
+                                    }
+                                }
+                            },
+                            'mobile-apps': {
+                                type: 'directory',
+                                children: {
+                                    'fitness-tracker': {
+                                        type: 'file',
+                                        size: '8.1MB',
+                                        modified: '2024-01-10',
+                                        description: 'Cross-platform fitness tracking app'
+                                    }
+                                }
+                            },
+                            'ai-ml': {
+                                type: 'directory',
+                                children: {
+                                    'chatbot': {
+                                        type: 'file',
+                                        size: '3.2MB',
+                                        modified: '2023-11-30',
+                                        description: 'AI-powered customer service chatbot'
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    'experience': {
+                        type: 'directory',
+                        children: {
+                            'software-engineer': {
+                                type: 'file',
+                                size: '1.8MB',
+                                modified: '2024-01-01',
+                                description: 'Current role at Tech Company'
+                            },
+                            'internships': {
+                                type: 'directory',
+                                children: {
+                                    'startup-intern': {
+                                        type: 'file',
+                                        size: '1.2MB',
+                                        modified: '2023-06-15',
+                                        description: 'Summer internship at Startup Inc'
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    'skills': {
+                        type: 'directory',
+                        children: {
+                            'programming-languages': {
+                                type: 'file',
+                                size: '0.8MB',
+                                modified: '2024-01-15',
+                                description: 'Python, Java, JavaScript, TypeScript, C++'
+                            },
+                            'frameworks': {
+                                type: 'file',
+                                size: '1.1MB',
+                                modified: '2024-01-15',
+                                description: 'React, Node.js, Express, Django, Flask'
+                            },
+                            'databases': {
+                                type: 'file',
+                                size: '0.9MB',
+                                modified: '2024-01-15',
+                                description: 'MongoDB, PostgreSQL, MySQL, Redis'
+                            }
+                        }
+                    },
+                    'publications': {
+                        type: 'directory',
+                        children: {
+                            'research-paper': {
+                                type: 'file',
+                                size: '2.1MB',
+                                modified: '2023-09-15',
+                                description: 'Machine Learning in Healthcare Applications'
+                            }
+                        }
+                    },
+                    'resume.pdf': {
+                        type: 'file',
+                        size: '1.5MB',
+                        modified: '2024-01-15',
+                        description: 'Nihal Shetty - Software Engineer Resume'
+                    },
+                    'README.md': {
+                        type: 'file',
+                        size: '0.3MB',
+                        modified: '2024-01-15',
+                        description: 'Portfolio documentation and instructions'
+                    }
+                }
+            }
+        };
         
         this.commands = {
             help: this.showHelp.bind(this),
@@ -247,7 +372,11 @@ class Terminal {
             theme: this.showThemes.bind(this),
             ls: this.listCommands.bind(this),
             whoami: this.showAbout.bind(this),
-            'show-all': this.showAll.bind(this)
+            'show-all': this.showAll.bind(this),
+            gui: this.enterGUIMode.bind(this),
+            cd: this.changeDirectory.bind(this),
+            cat: this.displayFile.bind(this),
+            pwd: this.showCurrentPath.bind(this)
         };
         
         this.init();
@@ -381,6 +510,9 @@ class Terminal {
             } else if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 this.navigateHistory('down');
+            } else if (e.key === 'Tab') {
+                e.preventDefault();
+                this.handleTabCompletion();
             }
         });
         
@@ -445,7 +577,8 @@ class Terminal {
         this.addToOutput(`
             <div class="content-section">
                 <div class="section-content">
-                    Welcome to my terminal portfolio! Type <span class="help-command">help</span>to see available commands.
+                    Welcome to my terminal portfolio! Type <span class="help-command">help</span> to see available commands.<br>
+                    <span style="color: var(--primary-color);"> Tip:</span> Use <span class="help-command">Tab</span>for command completion (e.g., type "proj" and press Tab → "projects").
                 </div>
             </div>
         `);
@@ -471,6 +604,12 @@ class Terminal {
         const parts = command.split(' ');
         const mainCommand = parts[0].toLowerCase();
         const args = parts.slice(1);
+        
+        // Handle GUI mode commands
+        if (this.guiMode) {
+            this.processGUIModeCommand(command);
+            return;
+        }
         
         if (mainCommand === 'theme') {
             if (args.length === 0) {
@@ -500,6 +639,87 @@ class Terminal {
         }
         
         this.commandInput.setSelectionRange(this.commandInput.value.length, this.commandInput.value.length);
+    }
+    
+    handleTabCompletion() {
+        const currentInput = this.commandInput.value.trim();
+        if (!currentInput) return;
+        
+        // Get all available commands
+        const availableCommands = Object.keys(this.commands);
+        
+        // Find commands that start with the current input
+        const matches = availableCommands.filter(cmd => 
+            cmd.toLowerCase().startsWith(currentInput.toLowerCase())
+        );
+        
+        if (matches.length === 0) {
+            // No matches found
+            this.showTabCompletionFeedback('No matches found');
+            return;
+        }
+        
+        if (matches.length === 1) {
+            // Single match - complete it
+            this.commandInput.value = matches[0];
+            this.showTabCompletionFeedback(`Completed: ${matches[0]}`);
+        } else {
+            // Multiple matches - cycle through them
+            if (this.lastTabCompletionMatches.length !== matches.length || 
+                !this.arraysEqual(this.lastTabCompletionMatches, matches)) {
+                // New set of matches, reset index
+                this.tabCompletionIndex = 0;
+                this.lastTabCompletionMatches = [...matches];
+            } else {
+                // Same matches, cycle to next
+                this.tabCompletionIndex = (this.tabCompletionIndex + 1) % matches.length;
+            }
+            
+            this.commandInput.value = matches[this.tabCompletionIndex];
+            this.showTabCompletionFeedback(`Match ${this.tabCompletionIndex + 1}/${matches.length}: ${matches[this.tabCompletionIndex]}`);
+        }
+        
+        // Reset tab completion state when input changes
+        this.commandInput.addEventListener('input', () => {
+            this.tabCompletionIndex = -1;
+            this.lastTabCompletionMatches = [];
+        }, { once: true });
+    }
+    
+    arraysEqual(a, b) {
+        return a.length === b.length && a.every((val, index) => val === b[index]);
+    }
+    
+    showTabCompletionFeedback(message) {
+        // Create a temporary feedback element
+        const feedback = document.createElement('div');
+        feedback.className = 'tab-completion-feedback';
+        feedback.textContent = message;
+        feedback.style.cssText = `
+            position: absolute;
+            top: -25px;
+            left: 0;
+            background: var(--background-color, rgba(30, 32, 40, 0.9));
+            color: var(--primary-color, #00ffb3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            border: 1px solid var(--primary-color, #00ffb3);
+            z-index: 1000;
+            pointer-events: none;
+        `;
+        
+        // Position relative to input
+        const inputLine = this.commandInput.parentElement;
+        inputLine.style.position = 'relative';
+        inputLine.appendChild(feedback);
+        
+        // Remove feedback after a short delay
+        setTimeout(() => {
+            if (feedback.parentElement) {
+                feedback.parentElement.removeChild(feedback);
+            }
+        }, 1500);
     }
     
     addToOutput(content, shouldScroll = true) {
@@ -585,8 +805,16 @@ class Terminal {
                         <span class="help-description">- Change terminal theme</span>
                     </div>
                     <div class="help-section">
+                        <span class="help-command">gui</span>
+                        <span class="help-description">- Enter GUI file viewer mode</span>
+                    </div>
+                    <div class="help-section">
                         <span class="help-command">clear</span>
                         <span class="help-description">- Clear the terminal</span>
+                    </div>
+                    <div class="help-section" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid var(--primary-color, #00ffb3);">
+                        <span class="help-command">Tab</span>
+                        <span class="help-description">- Auto-complete commands (e.g., "proj" + Tab → "projects")</span>
                     </div>
                 </div>
             </div>
@@ -965,6 +1193,239 @@ class Terminal {
     
     listCommands() {
         this.showHelp();
+    }
+    
+    // GUI File Viewer Methods
+    processGUIModeCommand(command) {
+        const parts = command.split(' ');
+        const cmd = parts[0];
+        const args = parts.slice(1);
+
+        switch (cmd) {
+            case 'ls':
+                this.listFiles();
+                break;
+            case 'cd':
+                this.changeDirectory(args[0] || '');
+                break;
+            case 'cat':
+                this.displayFile(args[0] || '');
+                break;
+            case 'pwd':
+                this.showCurrentPath();
+                break;
+            case 'gui':
+                this.exitGUIMode();
+                break;
+            case 'help':
+                this.showGUIHelp();
+                break;
+            default:
+                this.addToOutput(`Command not found: ${cmd}. Type 'help' for available commands.`);
+        }
+    }
+
+    enterGUIMode() {
+        this.guiMode = true;
+        this.currentPath = '/';
+        this.addToOutput('Entering GUI File Viewer Mode. ');
+        this.addToOutput('');
+        this.listFiles();
+    }
+
+    exitGUIMode() {
+        this.guiMode = false;
+        this.addToOutput('Exiting GUI File Viewer Mode...');
+        this.addToOutput('Welcome back to terminal mode!');
+    }
+
+    listFiles() {
+        const currentDir = this.getCurrentDirectory();
+        if (!currentDir) return;
+
+        this.addToOutput(`Contents of ${this.currentPath}:`);
+        this.addToOutput('');
+
+        // Add GUI-style file listing
+        const guiHTML = this.generateGUIListing(currentDir);
+        this.addToOutput(guiHTML);
+    }
+
+    generateGUIListing(directory) {
+        let html = '<div class="gui-listing">';
+        
+        // Add parent directory link
+        if (this.currentPath !== '/') {
+            html += '<div class="gui-item gui-directory" onclick="terminal.navigateToParent()">';
+            html += '<span class="gui-icon">📁</span>';
+            html += '<span class="gui-name">..</span>';
+            html += '<span class="gui-type">Parent Directory</span>';
+            html += '</div>';
+        }
+
+        // List directories first
+        const dirs = Object.entries(directory.children || {})
+            .filter(([name, item]) => item.type === 'directory')
+            .sort(([a], [b]) => a.localeCompare(b));
+
+        dirs.forEach(([name, item]) => {
+            html += '<div class="gui-item gui-directory" onclick="terminal.navigateToDirectory(\'' + name + '\')">';
+            html += '<span class="gui-icon">📁</span>';
+            html += '<span class="gui-name">' + name + '</span>';
+            html += '<span class="gui-type">Directory</span>';
+            html += '</div>';
+        });
+
+        // List files
+        const files = Object.entries(directory.children || {})
+            .filter(([name, item]) => item.type === 'file')
+            .sort(([a], [b]) => a.localeCompare(b));
+
+        files.forEach(([name, item]) => {
+            const icon = this.getFileIcon(name);
+            html += '<div class="gui-item gui-file" onclick="terminal.openFile(\'' + name + '\')">';
+            html += '<span class="gui-icon">' + icon + '</span>';
+            html += '<span class="gui-name">' + name + '</span>';
+            html += '<span class="gui-size">' + item.size + '</span>';
+            html += '<span class="gui-modified">' + item.modified + '</span>';
+            html += '</div>';
+        });
+
+        html += '</div>';
+        return html;
+    }
+
+    getFileIcon(filename) {
+        const ext = filename.split('.').pop().toLowerCase();
+        const icons = {
+            'pdf': '📄',
+            'md': '📝',
+            'js': '📜',
+            'html': '🌐',
+            'css': '🎨',
+            'py': '🐍',
+            'java': '☕',
+            'cpp': '⚡',
+            'json': '📋',
+            'txt': '📄',
+            'zip': '📦',
+            'jpg': '🖼️',
+            'png': '🖼️',
+            'gif': '🖼️'
+        };
+        return icons[ext] || '📄';
+    }
+
+    navigateToDirectory(name) {
+        const newPath = this.currentPath === '/' ? `/${name}` : `${this.currentPath}/${name}`;
+        this.currentPath = newPath;
+        this.listFiles();
+    }
+
+    navigateToParent() {
+        if (this.currentPath === '/') return;
+        const pathParts = this.currentPath.split('/').filter(part => part);
+        pathParts.pop();
+        this.currentPath = pathParts.length > 0 ? '/' + pathParts.join('/') : '/';
+        this.listFiles();
+    }
+
+    openFile(filename) {
+        const file = this.getCurrentDirectory().children[filename];
+        if (!file) return;
+
+        this.addToOutput(`Opening ${filename}...`);
+        this.addToOutput(`Size: ${file.size}`);
+        this.addToOutput(`Modified: ${file.modified}`);
+        this.addToOutput(`Description: ${file.description}`);
+        
+        // Special handling for certain files
+        if (filename === 'resume.pdf') {
+            this.openResume();
+        } else if (filename.endsWith('.pdf')) {
+            this.openPublication();
+        } else {
+            this.addToOutput(`File content preview not available for ${filename}`);
+        }
+    }
+
+    changeDirectory(path) {
+        if (!path) {
+            this.currentPath = '/';
+        } else if (path === '..') {
+            this.navigateToParent();
+            return;
+        } else if (path.startsWith('/')) {
+            this.currentPath = path;
+        } else {
+            this.currentPath = this.currentPath === '/' ? `/${path}` : `${this.currentPath}/${path}`;
+        }
+        this.listFiles();
+    }
+
+    displayFile(filename) {
+        if (!filename) {
+            this.addToOutput('Usage: cat <filename>');
+            return;
+        }
+        this.openFile(filename);
+    }
+
+    showCurrentPath() {
+        this.addToOutput(this.currentPath);
+    }
+
+    getCurrentDirectory() {
+        let current = this.fileSystem['/'];
+        if (this.currentPath === '/') return current;
+        
+        const pathParts = this.currentPath.split('/').filter(part => part);
+        for (const part of pathParts) {
+            if (current.children && current.children[part]) {
+                current = current.children[part];
+            } else {
+                this.addToOutput(`Directory not found: ${this.currentPath}`);
+                return null;
+            }
+        }
+        return current;
+    }
+
+    showGUIHelp() {
+        const guiHelpContent = `
+            <div class="command-history">
+                <div class="output">
+                    <div class="help-section">
+                        <span class="help-command">ls</span>
+                        <span class="help-description">- List files and directories</span>
+                    </div>
+                    <div class="help-section">
+                        <span class="help-command">cd &lt;dir&gt;</span>
+                        <span class="help-description">- Change directory</span>
+                    </div>
+                    <div class="help-section">
+                        <span class="help-command">cat &lt;file&gt;</span>
+                        <span class="help-description">- Display file contents</span>
+                    </div>
+                    <div class="help-section">
+                        <span class="help-command">pwd</span>
+                        <span class="help-description">- Show current path</span>
+                    </div>
+                    <div class="help-section">
+                        <span class="help-command">gui</span>
+                        <span class="help-description">- Exit GUI mode</span>
+                    </div>
+                    <div class="help-section">
+                        <span class="help-command">help</span>
+                        <span class="help-description">- Show this help</span>
+                    </div>
+                    <div class="help-section" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid var(--primary-color, #00ffb3);">
+                        <span class="help-description">💡 Click on files/directories to navigate or open them!</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        this.addToOutput(guiHelpContent);
     }
 }
 
