@@ -238,11 +238,47 @@ class Terminal {
         // GUI File Viewer Mode
         this.guiMode = false;
         this.currentPath = '/';
+        this.selectedIndex = 0;
+        this.guiItems = [];
+        this.searchFilter = '';
+        this.sortBy = 'name';
+        this.sortOrder = 'asc';
         this.fileSystem = {
             '/': {
                 type: 'directory',
                 children: {
                     'projects': {
+                        type: 'file',
+                        size: '15.2MB',
+                        modified: '2024-01-15',
+                        description: 'Collection of my software development projects',
+                        content: `# My Projects Portfolio
+
+Here's a comprehensive overview of my software development projects:
+
+## 🌐 Web Applications
+- **Portfolio Website** - Terminal-style interactive portfolio (this site!)
+- **E-commerce Platform** - Full-stack shopping application with payment processing
+- **Learning Management System** - Course management and student interaction platform
+
+## 📱 Mobile Applications  
+- **Fitness Tracker** - Cross-platform health and fitness monitoring app
+- **2048 Game** - iOS implementation of the popular puzzle game
+- **Task Manager** - Productivity app with sync capabilities
+
+## 🤖 AI/ML Projects
+- **Customer Service Chatbot** - AI-powered support system
+- **Image Classification** - Computer vision project for object recognition
+- **Sentiment Analysis** - Natural language processing for social media
+
+## 🛠️ Tools & Utilities
+- **Syntax Analyzer** - C language parser and error checker
+- **Sorting Visualizer** - Interactive algorithm demonstration tool
+- **File Manager** - Cross-platform file organization utility
+
+Each project demonstrates different aspects of software development including frontend design, backend architecture, database management, and user experience optimization.`
+                    },
+                    'projects-dir': {
                         type: 'directory',
                         children: {
                             'web-apps': {
@@ -287,6 +323,50 @@ class Terminal {
                         }
                     },
                     'experience': {
+                        type: 'file',
+                        size: '3.8MB',
+                        modified: '2024-01-15',
+                        description: 'My professional work experience and career journey',
+                        content: `# Professional Experience
+
+## 🏢 Current Position
+**Senior Consultant** at Heartland Community Network
+*June 2025 – Present*
+- Partner with small businesses across Indiana to identify operational challenges
+- Deliver tailored software solutions through web and app development
+- Lead technical consulting projects from conception to deployment
+
+## 💼 Previous Roles
+
+### Full Stack Developer Intern - Hyphenova
+*August 2024 – December 2024*
+- Led development of key user-facing features including onboarding and profile systems
+- Implemented custom component libraries and structured form handling
+- Improved input validation and overall UX consistency across the platform
+
+### Full Stack Engineer Intern - Y STEM & Chess Inc.
+*May 2024 – August 2024*
+- Assisted in migrating main platform from Angular to React
+- Restructured components and implemented routing via React Router
+- Improved maintainability and frontend performance significantly
+
+### FOSSEE Intern - Indian Institute of Technology, Bombay
+*March 2022 - October 2022*
+- Spearheaded critical Moodle platform upgrade for Spoken Tutorial initiative
+- Analyzed over 2,000 relational database tables
+- Optimized 32 performance-critical tables for improved query efficiency
+
+## 🎓 Education
+**M.S. in Computer Science** - Indiana University
+*Graduated 2024*
+
+## 🚀 Key Achievements
+- Successfully migrated legacy systems to modern frameworks
+- Improved platform performance by 40% through database optimization
+- Led cross-functional teams in agile development environments
+- Delivered 15+ software solutions for small businesses`
+                    },
+                    'experience-dir': {
                         type: 'directory',
                         children: {
                             'software-engineer': {
@@ -309,13 +389,82 @@ class Terminal {
                         }
                     },
                     'skills': {
+                        type: 'file',
+                        size: '2.1MB',
+                        modified: '2024-01-15',
+                        description: 'My technical skills and expertise areas',
+                        content: `# Technical Skills & Expertise
+
+## 💻 Programming Languages
+**Proficient:** Python, Java, JavaScript, TypeScript, C++
+**Familiar:** C, PHP, R, MATLAB, Kotlin, Swift, SQL
+
+## 🌐 Web & App Development
+**Frontend:** React, Angular, Next.js, HTML5, CSS3, Bootstrap
+**Backend:** Node.js, Express, Django, Flask, Spring Boot
+**Mobile:** Android Studio, Xcode, React Native
+**Full-Stack:** MERN Stack, MEAN Stack, REST APIs, GraphQL
+
+## 🗄️ Databases & Data Storage
+**Relational:** PostgreSQL, MySQL, SQL Server
+**NoSQL:** MongoDB, Firebase, Redis
+**Data Analysis:** R, MATLAB, Python (Pandas, NumPy)
+
+## ☁️ Cloud & DevOps
+**Cloud Platforms:** AWS, Google Cloud Platform, Microsoft Azure
+**DevOps:** Docker, Kubernetes, CI/CD pipelines, GitHub Actions
+**Version Control:** Git, GitHub, GitLab
+**Monitoring:** Application performance monitoring, logging
+
+## 🛠️ Tools & Technologies
+**Development:** VS Code, IntelliJ IDEA, Postman, Jira
+**Design:** Figma, Adobe Creative Suite
+**Testing:** Jest, Cypress, Selenium
+**Project Management:** Agile, Scrum, Kanban
+
+## 📊 Specialized Areas
+- **Machine Learning:** TensorFlow, scikit-learn, computer vision
+- **Data Structures & Algorithms:** Problem-solving, optimization
+- **System Design:** Scalable architecture, microservices
+- **Security:** Authentication, encryption, secure coding practices
+
+## 🎯 Soft Skills
+- Team leadership and collaboration
+- Technical documentation and communication
+- Problem-solving and analytical thinking
+- Project management and agile methodologies`
+                    },
+                    'skills-dir': {
                         type: 'directory',
                         children: {
                             'programming-languages': {
                                 type: 'file',
                                 size: '0.8MB',
                                 modified: '2024-01-15',
-                                description: 'Python, Java, JavaScript, TypeScript, C++'
+                                description: 'Python, Java, JavaScript, TypeScript, C++',
+                                content: `Programming Languages I'm proficient in:
+
+🐍 Python
+- Web development (Django, Flask)
+- Data science and machine learning
+- Automation and scripting
+
+☕ Java
+- Enterprise applications
+- Android development
+- Spring Framework
+
+🟨 JavaScript/TypeScript
+- Frontend development (React, Angular)
+- Backend development (Node.js)
+- Full-stack applications
+
+⚡ C++
+- System programming
+- Performance-critical applications
+- Game development
+
+Other languages: C, PHP, R, MATLAB, Kotlin, Swift`
                             },
                             'frameworks': {
                                 type: 'file',
@@ -332,6 +481,52 @@ class Terminal {
                         }
                     },
                     'publications': {
+                        type: 'file',
+                        size: '1.2MB',
+                        modified: '2024-01-15',
+                        description: 'My academic publications and research work',
+                        content: `# Academic Publications & Research
+
+## 📄 Published Papers
+
+### "Conversational AI Based College Enquiry Chatbot"
+**Journal:** IJRASET (International Journal for Research in Applied Science and Engineering Technology)
+**Publication Date:** 2023
+**DOI:** https://doi.org/10.22214/ijraset.2023.51324
+
+**Abstract:**
+This research paper presents the development and implementation of an intelligent conversational AI system designed to handle college admission inquiries. The chatbot utilizes natural language processing techniques to provide accurate and timely responses to prospective students' questions about admission procedures, course information, and campus facilities.
+
+**Key Contributions:**
+- Designed and implemented a context-aware conversational AI system
+- Integrated natural language understanding with college database systems
+- Achieved 85% accuracy in handling common admission-related queries
+- Reduced response time for student inquiries by 70%
+
+**Technologies Used:**
+- Python, Natural Language Processing (NLP)
+- Machine Learning algorithms for intent recognition
+- Database integration for real-time information retrieval
+- Web interface for seamless user interaction
+
+## 🔬 Research Areas
+- **Artificial Intelligence & Machine Learning**
+- **Natural Language Processing**
+- **Educational Technology**
+- **Human-Computer Interaction**
+
+## 📚 Academic Background
+- **M.S. in Computer Science** - Indiana University
+- **Research Focus:** AI applications in education and customer service
+- **Thesis:** "Enhancing Educational Support Systems through Conversational AI"
+
+## 🎯 Future Research Interests
+- Advanced NLP techniques for educational applications
+- Multi-modal AI systems for enhanced user interaction
+- Ethical AI development and bias mitigation
+- Real-time learning systems and adaptive education platforms`
+                    },
+                    'publications-dir': {
                         type: 'directory',
                         children: {
                             'research-paper': {
@@ -352,7 +547,30 @@ class Terminal {
                         type: 'file',
                         size: '0.3MB',
                         modified: '2024-01-15',
-                        description: 'Portfolio documentation and instructions'
+                        description: 'Portfolio documentation and instructions',
+                        content: `# Nihal Shetty's Portfolio
+
+Welcome to my terminal-style portfolio! This interactive website showcases my projects, experience, and skills in a unique command-line interface.
+
+## Features
+
+- Interactive terminal commands
+- Multiple themes (Default, Retro, Cyberpunk, Matrix, Ocean)
+- GUI file viewer mode
+- Tab completion
+- Smooth transitions
+
+## Commands
+
+Type 'help' to see all available commands.
+
+## Technologies Used
+
+- HTML5, CSS3, JavaScript
+- Responsive design
+- Modern web APIs
+
+Built with ❤️ by Nihal Shetty`
                     }
                 }
             }
@@ -396,17 +614,20 @@ class Terminal {
     
     // Particle System
     initParticles() {
-        this.createParticles();
-        setInterval(() => this.createParticle(), 1500);
+        // Delay particle initialization until after loading
+        setTimeout(() => {
+            this.createParticles();
+            setInterval(() => this.createParticle(), 2000); // Reduced frequency
+        }, 100);
     }
     
     createParticles() {
         const particlesContainer = document.getElementById('particles');
         if (!particlesContainer) return;
         
-        // Create initial particles
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => this.createParticle(), i * 300);
+        // Reduced initial particles from 15 to 8
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => this.createParticle(), i * 100); // Reduced delay from 300ms to 100ms
         }
     }
     
@@ -471,24 +692,58 @@ class Terminal {
         let messageIndex = 0;
         const loadingMessage = document.getElementById('loading-message');
         
+        // Preload background images for faster theme switching
+        this.preloadBackgroundImages();
+        
         const updateMessage = () => {
             if (this.loadingSkipped) return; // If skipped, do nothing
             if (messageIndex < loadingMessages.length) {
                 loadingMessage.textContent = loadingMessages[messageIndex];
+                this.updateLoadingProgress(messageIndex + 1);
                 messageIndex++;
-                this.loadingTimeout = setTimeout(updateMessage, 800);
+                // Reduced delay from 800ms to 300ms
+                this.loadingTimeout = setTimeout(updateMessage, 300);
             } else {
+                this.updateLoadingProgress(loadingMessages.length);
+                // Reduced final delay from 1000ms to 200ms
                 this.loadingTimeout = setTimeout(() => {
                     if (this.loadingSkipped) return;
                     this.loadingScreen.style.display = 'none';
                     this.terminal.classList.remove('hidden');
                     this.showWelcome();
                     this.commandInput.focus();
-                }, 1000);
+                }, 200);
             }
         };
         
         updateMessage();
+    }
+
+    updateLoadingProgress(messageIndex = 0) {
+        const progressBar = document.getElementById('loading-progress');
+        const percentageText = document.getElementById('loading-percentage');
+        if (progressBar && percentageText) {
+            const loadingMessages = [
+                "Initializing terminal...",
+                "Loading system modules...",
+                "Establishing connection...",
+                "Loading portfolio data...",
+                "System ready!"
+            ];
+            const progress = (messageIndex / loadingMessages.length) * 100;
+            progressBar.style.width = progress + '%';
+            percentageText.textContent = Math.round(progress) + '%';
+        }
+    }
+
+    preloadBackgroundImages() {
+        const themes = Object.values(portfolioData.themes);
+        themes.forEach(theme => {
+            if (theme.wallpaper) {
+                const img = new Image();
+                img.src = theme.wallpaper;
+            }
+        });
     }
 
     skipLoadingAnimation() {
@@ -502,6 +757,11 @@ class Terminal {
     
     setupEventListeners() {
         this.commandInput.addEventListener('keydown', (e) => {
+            if (this.guiMode) {
+                this.handleGUINavigation(e);
+                return;
+            }
+            
             if (e.key === 'Enter') {
                 this.processCommand();
             } else if (e.key === 'ArrowUp') {
@@ -1220,6 +1480,15 @@ class Terminal {
             case 'help':
                 this.showGUIHelp();
                 break;
+            case 'search':
+                this.setSearchFilter(args.join(' '));
+                break;
+            case 'clear':
+                this.clearSearchFilter();
+                break;
+            case 'sort':
+                this.setSorting(args[0] || 'name', args[1] || 'asc');
+                break;
             default:
                 this.addToOutput(`Command not found: ${cmd}. Type 'help' for available commands.`);
         }
@@ -1243,8 +1512,20 @@ class Terminal {
         const currentDir = this.getCurrentDirectory();
         if (!currentDir) return;
 
-        this.addToOutput(`Contents of ${this.currentPath}:`);
+        let header = `Contents of ${this.currentPath}:`;
+        if (this.searchFilter) {
+            header += ` (filtered by: "${this.searchFilter}")`;
+        }
+        if (this.sortBy !== 'name' || this.sortOrder !== 'asc') {
+            header += ` (sorted by: ${this.sortBy} ${this.sortOrder})`;
+        }
+        
+        this.addToOutput(header);
         this.addToOutput('');
+
+        // Add breadcrumb navigation
+        const breadcrumbHTML = this.generateBreadcrumb();
+        this.addToOutput(breadcrumbHTML);
 
         // Add GUI-style file listing
         const guiHTML = this.generateGUIListing(currentDir);
@@ -1253,9 +1534,55 @@ class Terminal {
 
     generateGUIListing(directory) {
         let html = '<div class="gui-listing">';
+        this.guiItems = []; // Reset GUI items array
+        
+        // Get all items (directories and files)
+        let allItems = Object.entries(directory.children || {});
+        
+        // Apply search filter
+        if (this.searchFilter) {
+            const filter = this.searchFilter.toLowerCase();
+            allItems = allItems.filter(([name, item]) => 
+                name.toLowerCase().includes(filter) || 
+                (item.description && item.description.toLowerCase().includes(filter))
+            );
+        }
+        
+        // Separate directories and files
+        const dirs = allItems.filter(([name, item]) => item.type === 'directory');
+        const files = allItems.filter(([name, item]) => item.type === 'file');
+        
+        // Sort items
+        const sortItems = (items) => {
+            return items.sort(([a, itemA], [b, itemB]) => {
+                let comparison = 0;
+                
+                switch (this.sortBy) {
+                    case 'name':
+                        comparison = a.localeCompare(b);
+                        break;
+                    case 'size':
+                        const sizeA = this.parseSize(itemA.size);
+                        const sizeB = this.parseSize(itemB.size);
+                        comparison = sizeA - sizeB;
+                        break;
+                    case 'date':
+                        comparison = new Date(itemA.modified) - new Date(itemB.modified);
+                        break;
+                    case 'type':
+                        comparison = itemA.type.localeCompare(itemB.type);
+                        break;
+                }
+                
+                return this.sortOrder === 'desc' ? -comparison : comparison;
+            });
+        };
+        
+        const sortedDirs = sortItems(dirs);
+        const sortedFiles = sortItems(files);
         
         // Add parent directory link
-        if (this.currentPath !== '/') {
+        if (this.currentPath !== '/' && (!this.searchFilter || '..'.includes(this.searchFilter.toLowerCase()))) {
             html += '<div class="gui-item gui-directory" onclick="terminal.navigateToParent()">';
             html += '<span class="gui-icon">📁</span>';
             html += '<span class="gui-name">..</span>';
@@ -1264,11 +1591,7 @@ class Terminal {
         }
 
         // List directories first
-        const dirs = Object.entries(directory.children || {})
-            .filter(([name, item]) => item.type === 'directory')
-            .sort(([a], [b]) => a.localeCompare(b));
-
-        dirs.forEach(([name, item]) => {
+        sortedDirs.forEach(([name, item]) => {
             html += '<div class="gui-item gui-directory" onclick="terminal.navigateToDirectory(\'' + name + '\')">';
             html += '<span class="gui-icon">📁</span>';
             html += '<span class="gui-name">' + name + '</span>';
@@ -1277,11 +1600,7 @@ class Terminal {
         });
 
         // List files
-        const files = Object.entries(directory.children || {})
-            .filter(([name, item]) => item.type === 'file')
-            .sort(([a], [b]) => a.localeCompare(b));
-
-        files.forEach(([name, item]) => {
+        sortedFiles.forEach(([name, item]) => {
             const icon = this.getFileIcon(name);
             html += '<div class="gui-item gui-file" onclick="terminal.openFile(\'' + name + '\')">';
             html += '<span class="gui-icon">' + icon + '</span>';
@@ -1292,6 +1611,14 @@ class Terminal {
         });
 
         html += '</div>';
+        
+        // Store GUI items for keyboard navigation
+        setTimeout(() => {
+            this.guiItems = Array.from(document.querySelectorAll('.gui-item'));
+            this.selectedIndex = 0;
+            this.updateSelection();
+        }, 100);
+        
         return html;
     }
 
@@ -1344,9 +1671,38 @@ class Terminal {
             this.openResume();
         } else if (filename.endsWith('.pdf')) {
             this.openPublication();
+        } else if (file.content) {
+            // Show file content preview
+            this.addToOutput('');
+            this.addToOutput('--- File Content Preview ---');
+            this.addToOutput('');
+            
+            const content = file.content;
+            const lines = content.split('\n');
+            const maxLines = 20; // Show first 20 lines
+            
+            if (lines.length > maxLines) {
+                lines.slice(0, maxLines).forEach(line => {
+                    this.addToOutput(`<div class="file-preview-line">${this.escapeHtml(line)}</div>`);
+                });
+                this.addToOutput(`<div class="file-preview-more">... (${lines.length - maxLines} more lines)</div>`);
+            } else {
+                lines.forEach(line => {
+                    this.addToOutput(`<div class="file-preview-line">${this.escapeHtml(line)}</div>`);
+                });
+            }
+            
+            this.addToOutput('');
+            this.addToOutput('--- End Preview ---');
         } else {
             this.addToOutput(`File content preview not available for ${filename}`);
         }
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 
     changeDirectory(path) {
@@ -1419,13 +1775,147 @@ class Terminal {
                         <span class="help-command">help</span>
                         <span class="help-description">- Show this help</span>
                     </div>
+                    <div class="help-section">
+                        <span class="help-command">search &lt;term&gt;</span>
+                        <span class="help-description">- Filter files by name or description</span>
+                    </div>
+                    <div class="help-section">
+                        <span class="help-command">clear</span>
+                        <span class="help-description">- Clear search filter</span>
+                    </div>
+                    <div class="help-section">
+                        <span class="help-command">sort &lt;by&gt; [order]</span>
+                        <span class="help-description">- Sort by name/size/date/type (asc/desc)</span>
+                    </div>
                     <div class="help-section" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid var(--primary-color, #00ffb3);">
-                        <span class="help-description">💡 Click on files/directories to navigate or open them!</span>
+                        <span class="help-description">💡 Use ↑↓ arrows to navigate, Enter to open, Esc to exit GUI mode!</span>
                     </div>
                 </div>
             </div>
         `;
         this.addToOutput(guiHelpContent);
+    }
+    
+    // Keyboard Navigation for GUI Mode
+    handleGUINavigation(e) {
+        e.preventDefault();
+        
+        switch(e.key) {
+            case 'ArrowUp':
+                this.selectedIndex = Math.max(0, this.selectedIndex - 1);
+                this.updateSelection();
+                break;
+            case 'ArrowDown':
+                this.selectedIndex = Math.min(this.guiItems.length - 1, this.selectedIndex + 1);
+                this.updateSelection();
+                break;
+            case 'Enter':
+                this.activateSelectedItem();
+                break;
+            case 'Escape':
+                this.exitGUIMode();
+                break;
+            case 'Backspace':
+                if (this.currentPath !== '/') {
+                    this.navigateToParent();
+                }
+                break;
+        }
+    }
+    
+    updateSelection() {
+        // Remove previous selection
+        document.querySelectorAll('.gui-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        
+        // Add selection to current item
+        if (this.guiItems[this.selectedIndex]) {
+            this.guiItems[this.selectedIndex].classList.add('selected');
+            this.guiItems[this.selectedIndex].scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'nearest' 
+            });
+        }
+    }
+    
+    activateSelectedItem() {
+        if (!this.guiItems[this.selectedIndex]) return;
+        
+        const item = this.guiItems[this.selectedIndex];
+        const name = item.querySelector('.gui-name').textContent;
+        
+        if (name === '..') {
+            this.navigateToParent();
+        } else if (item.classList.contains('gui-directory')) {
+            this.navigateToDirectory(name);
+        } else {
+            this.openFile(name);
+        }
+    }
+    
+    // Search and Filter Methods
+    setSearchFilter(filter) {
+        this.searchFilter = filter;
+        this.addToOutput(`Search filter set to: "${filter}"`);
+        this.listFiles();
+    }
+    
+    clearSearchFilter() {
+        this.searchFilter = '';
+        this.addToOutput('Search filter cleared');
+        this.listFiles();
+    }
+    
+    setSorting(sortBy, sortOrder) {
+        const validSortBy = ['name', 'size', 'date', 'type'];
+        const validSortOrder = ['asc', 'desc'];
+        
+        if (validSortBy.includes(sortBy)) {
+            this.sortBy = sortBy;
+        }
+        if (validSortOrder.includes(sortOrder)) {
+            this.sortOrder = sortOrder;
+        }
+        
+        this.addToOutput(`Sorting by: ${this.sortBy} ${this.sortOrder}`);
+        this.listFiles();
+    }
+    
+    parseSize(sizeStr) {
+        const match = sizeStr.match(/(\d+\.?\d*)([KMGT]?B)/);
+        if (!match) return 0;
+        
+        const value = parseFloat(match[1]);
+        const unit = match[2];
+        
+        const multipliers = { 'B': 1, 'KB': 1024, 'MB': 1024*1024, 'GB': 1024*1024*1024, 'TB': 1024*1024*1024*1024 };
+        return value * (multipliers[unit] || 1);
+    }
+    
+    // Breadcrumb Navigation
+    generateBreadcrumb() {
+        const pathParts = this.currentPath.split('/').filter(part => part);
+        let html = '<div class="gui-breadcrumb">';
+        
+        // Always show root
+        html += '<span class="gui-breadcrumb-item" onclick="terminal.navigateToPath(\'/\')">🏠 Root</span>';
+        
+        // Add path parts
+        let currentPath = '';
+        pathParts.forEach((part, index) => {
+            currentPath += '/' + part;
+            html += '<span class="gui-breadcrumb-separator">/</span>';
+            html += `<span class="gui-breadcrumb-item" onclick="terminal.navigateToPath('${currentPath}')">${part}</span>`;
+        });
+        
+        html += '</div>';
+        return html;
+    }
+    
+    navigateToPath(path) {
+        this.currentPath = path;
+        this.listFiles();
     }
 }
 
