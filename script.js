@@ -1,11 +1,11 @@
 // Portfolio Data
 const portfolioData = {
-    name: "Nihal Shetty",
-    title: "Software Engineer / Full Stack Developer",
-    email: "nihalshetty2001@gmail.com",
-    linkedin: "https://linkedin.com/in/nihaldshetty/",
-    github: "https://github.com/nihalshetty-boop",
-    resume: "assets/nihalshettyresume.pdf",
+    name: "Gean Felipe",
+    title: "PARA SEMPRE INICIANTE",
+    email: "geanpedro789@gmail.com",
+    linkedin: "https://www.linkedin.com/in/gean-felipe/",
+    github: "https://github.com/GeanFranca",
+    resume: "0",
     
 
     
@@ -102,42 +102,6 @@ When I'm not coding, you can find me exploring new technologies or contributing 
             tech: "React, Node.js, MongoDB, Stripe, Redux",
             link: "https://github.com/nihalshetty-boop/listri"
         },
-        {
-            title: "MyGlanceThing",
-            description: "A open source project that allows you to create a glanceable dashboard of your important data on the Spotify Car Thing.",
-            tech: "Electron, Vite, React, CSS, Node.js",
-            link: "https://github.com/nihalshetty-boop/MyGlanceThing"
-        },
-        {
-            title: "2048-iOS",
-            description: "A-based services.",
-            tech: "JavaScript, OpenWeather API, Chart.js, Geolocation API",
-            link: "https://github.com/nihalshetty-boop/2048-iOS"
-        },
-        {
-            title: "CourseCraft Learning Management System",
-            description: "Developed a full-stack Learning Management System enabling instructors to create, manage and organize courses, assignments and student interactions. Optimized load times and database queries to improve overall performance,",
-            tech: "React, Express, Firebase, NodeJS",
-            link: "https://github.com/nihalshetty-boop/CourseCraft-LMS"
-        },
-        {
-            title: "Portfolio Website",
-            description: "This very terminal-style portfolio website you're currently viewing! Built with vanilla JavaScript and CSS.",
-            tech: "HTML, CSS, JavaScript",
-            link: "https://github.com/nihalshetty-boop/nihalshetty.me"
-        },
-        {
-            title: "Syntax Analyser for C",
-            description: "A syntax analyser for C language that follows the rules of the C language and checks for errors in the code.",
-            tech: "Lex, C",
-            link: "https://github.com/nihalshetty-boop/Syntax-Analyser-for-C"
-        },
-        {
-            title: "Sorting Algorithms Visualizer",
-            description: "A sorting algorithms visualizer that allows you to visualize how different sorting algorithms work.",
-            tech: "HTML, CSS, JavaScript, PHP",
-            link: "https://github.com/nihalshetty-boop/Sorting-Algorithm-Visualiser"
-        }
 
     ],
     
@@ -148,38 +112,16 @@ When I'm not coding, you can find me exploring new technologies or contributing 
             date: "June 2025 – Present",
             description: "Partnered with small businesses and organizations across Indiana to identify operational challenges and deliver tailored software solutions through web and app development."
         },
-        {
-            title: "Full Stack Developer Intern",
-            company: "Hyphenova",
-            date: "August 2024 – December 2024",
-            description: "Led the development of key user-facing features including onboarding, profile, chat and creator pages using custom component libraries and structured form handling, improving input validation and overall UX consistency."
-        },
-        {
-            title: "Full Stack Engineer Intern",
-            company: "Y STEM & Chess Inc.",
-            date: "May 2024 – August 2024",
-            description: "Assisted in migrating the company’s main platform from Angular to React, restructuring components and implementing routing via React Router to improve maintainability and frontend performance."
-        },
-        {
-            title: "FOSSEE Intern",
-            company: "Indian Institute of Technology – Bombay",
-            date: "March 2022 - October 2022",
-            description: "Spearheaded a critical Moodle platform upgrade for the Spoken Tutorial initiative by analyzing over 2,000 relational database tables and optimizing 32 performance-critical ones, ensuring schema alignment and improved query efficiency."
-        }
     ],
     
     skills: {
-        "Programming Languages": ["Python", "Java", "C", "C++", "JavaScript", "TypeScript", "SQL", "Kotlin", "Swift", "PHP", "R", "MATLAB"],
-        "Web & App Development": ["React", "Angular", "Next.js",  "Node.js", "Express", "Android Studio", "Xcode", "HTML", "CSS", "Flask", "Django", "Bootstrap", "MERN & MEAN Stack", "Streamlit", "Redux", "REST API", "Spring Boot", "Electron", "Vite", "GraphQL"],
-        "Databases/Datastores": ["SQL", "MongoDB", "PostgreSQL", "Firebase", "RDBMS", "MySQL", "Redis"],
-        "Cloud & DevOps": ["AWS", "GCP", "CI/CD", "Docker", "Kubernetes", "K8s", "GitHub Actions"],
-        "Miscellaneous": ["Data Structures", "Algorithms", "Linux", "Microsoft Azure", "Agile", "Git", "Jira", "Postman", "VS Code", "Version Control", "Operating Systems", "Computer Networks", "TCP/IP"]
+        "Programming Languages": ["Python", "Java", "C", "C++", "JavaScript", "TypeScript", "SQL", "Kotlin", "Swift", "PHP", "R", "MATLAB"]
     },
     
     publications: [
         {
-            title: "Conversational AI Based College Enquiry Chatbot",
-            journal: "IJRASET",
+            title: "0",
+            journal: "T",
             date: "2023",
             link: "https://doi.org/10.22214/ijraset.2023.51324",
             pdf: "assets/doc.pdf"
@@ -189,13 +131,17 @@ When I'm not coding, you can find me exploring new technologies or contributing 
 
 // ASCII Art for the name
 const asciiArt = `
-  ███╗   ██╗██╗██╗  ██╗ █████╗ ██╗     
-  ████╗  ██║██║██║  ██║██╔══██╗██║     
-  ██╔██╗ ██║██║███████║███████║██║     
-  ██║╚██╗██║██║██╔══██║██╔══██║██║     
-  ██║ ╚████║██║██║  ██║██║  ██║███████╗ 
-  ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ 
-                                      
+  /$$$$$$  /$$$$$$$$  /$$$$$$  /$$   /$$       /$$$$$$$$ /$$$$$$$$ /$$       /$$$$$$ /$$$$$$$  /$$$$$$$$
+ /$$__  $$| $$_____/ /$$__  $$| $$$ | $$      | $$_____/| $$_____/| $$      |_  $$_/| $$__  $$| $$_____/
+| $$  \__/| $$      | $$  \ $$| $$$$| $$      | $$      | $$      | $$        | $$  | $$  \ $$| $$      
+| $$ /$$$$| $$$$$   | $$$$$$$$| $$ $$ $$      | $$$$$   | $$$$$   | $$        | $$  | $$$$$$$/| $$$$$   
+| $$|_  $$| $$__/   | $$__  $$| $$  $$$$      | $$__/   | $$__/   | $$        | $$  | $$____/ | $$__/   
+| $$  \ $$| $$      | $$  | $$| $$\  $$$      | $$      | $$      | $$        | $$  | $$      | $$      
+|  $$$$$$/| $$$$$$$$| $$  | $$| $$ \  $$      | $$      | $$$$$$$$| $$$$$$$$ /$$$$$$| $$      | $$$$$$$$
+ \______/ |________/|__/  |__/|__/  \__/      |__/      |________/|________/|______/|__/      |________/
+                                                                                                        
+                                                                                                        
+                                                                                                                            
 Software Engineer / Full Stack Developer
 `;
 
