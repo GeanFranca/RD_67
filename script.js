@@ -10,7 +10,7 @@ const portfolioData = {
 
     
     themes: {
-        "default": {
+        /*"default": {
             name: "Default",
             description: "Classic terminal green",
             colors: {
@@ -73,8 +73,8 @@ const portfolioData = {
                 shadow: "0 3px 12px rgba(0, 255, 0, 0.6)"
             },
             wallpaper: "assets/wallpaper-matrix.jpg"
-        },
-        "ocean": {
+        },*/
+        "default": {
             name: "Ocean",
             description: "Deep blue sea",
             colors: {
@@ -92,15 +92,14 @@ const portfolioData = {
         }
     },
     
-    about: `I'm a passionate full-stack developer with hands-on experience building scalable web and mobile applications using technologies like React, Node.js, FastAPI, MongoDB, and Swift. I've contributed to impactful projects across startups and academic environments—ranging from full-stack learning platforms to native iOS games—focusing on performance, usability, and clean architecture. With a strong foundation in data structures, backend systems, and cloud deployment (AWS, GCP, Docker), I enjoy working across the stack to solve real-world problems and deliver polished user experiences. I've also explored areas like CI/CD, authentication, and real-time communication, and I'm always excited to learn and apply new technologies to build meaningful software. I recently graduated with an M.S. in Computer Science at Indiana University, and I'm actively seeking full-time software engineering roles where I can contribute to impactful products and grow as a developer.
-When I'm not coding, you can find me exploring new technologies or contributing to open source projects.`,
+    about: `Soi um entusiasta`,
     
     projects: [
         {
-            title: "Listri, an E-Commerce Platform",
-            description: "A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.",
+            title: "APLICATIVO DE LOGISTICA",
+            description: "APLICATIVO PARA AUXILIAR EMPRESAS DE LOGISTICA",
             tech: "React, Node.js, MongoDB, Stripe, Redux",
-            link: "https://github.com/nihalshetty-boop/listri"
+            link: "https://www.linkedin.com/in/gean-felipe/"
         },
 
     ],
@@ -115,7 +114,7 @@ When I'm not coding, you can find me exploring new technologies or contributing 
     ],
     
     skills: {
-        "Programming Languages": ["Python", "Java", "C", "C++", "JavaScript", "TypeScript", "SQL", "Kotlin", "Swift", "PHP", "R", "MATLAB"]
+        "Programming Languages": ["Java", "C++", "JavaScript"]
     },
     
     publications: [
@@ -487,7 +486,7 @@ This research paper presents the development and implementation of an intelligen
                         type: 'file',
                         size: '1.5MB',
                         modified: '2024-01-15',
-                        description: 'Nihal Shetty - Software Engineer Resume'
+                        description: 'Gean Felipe '
                     },
                     'README.md': {
                         type: 'file',
@@ -764,7 +763,7 @@ Built with ❤️ by Nihal Shetty`
         const linkedinUrl = isMobile ? 'linkedin.com/in/nihaldshetty/' : 'https://www.linkedin.com/in/nihaldshetty/';
         
         document.getElementById('info-block').innerHTML = `
-            <div class="info-name">Nihal Dayanand Shetty</div>
+            <div class="info-name">GEAN FELIPE CURRICULO</div>
             <div class="info-separator"></div>
             <a class="info-link" href="${portfolioData.resume}">${icons.resume} Resume &rarr; <span style="font-size:14px;">View my resume</span></a>
             <a class="info-link" href="${portfolioData.github}" target="_blank">${icons.github} GitHub &rarr; <span style="font-size:14px;">${githubUrl}</span></a>
