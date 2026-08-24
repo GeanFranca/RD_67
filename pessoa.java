@@ -23,5 +23,19 @@ import java.util.Random;
     public static void main(String args[]){
         Pessoa p1 = new Pessoa("Teste A");
         System.out.println("Pessoa 1: "+p1.getNome());
+        System.out.println("codigo identificador Pessoa 1: "+p1.getCodigoIdentificador());
+
+
+        Pessoa p2 = new Pessoa("Teste B");
+        System.out.println("Pessoa 2: "+p2.getNome());
+        System.out.println("codigo identificador Pessoa 2: "+p2.getCodigoIdentificador());
+
     }
+
+
+
+
+
+
+
 }
